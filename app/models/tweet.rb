@@ -12,4 +12,9 @@ class Tweet < ApplicationRecord
       self.hashtags << hashtag
     end
   end
+
+  def self.search(search)
+    where("content LIKE ?", "%#{search}%")
+  end
+
 end
