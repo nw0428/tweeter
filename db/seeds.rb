@@ -8,10 +8,22 @@
 
 user_count = User.count
 
+until User.count > 15
+  user = User.new(
+    email: "fake_user#{user_count += 1}@fake.com",
+    password: "who even cares"
+  )
+  user.save!
+end
+
+user_count = User.count
+
 for follower in User.all do
   for followee in User.all do
     begin
-      follower.following_users << followee
+      if !follower.following_users.include? followee
+        follower.following_users << followee
+      end
     rescue
       puts 'rescued'
     end
