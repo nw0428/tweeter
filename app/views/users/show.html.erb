@@ -5,7 +5,9 @@
 <% if @user.followers.include? current_user %>
 <h2> Currently followed </h2>
 <% else %>
-<%= link_to "Follow User", follow_user_path(@user), method: :put %>
+  <% if tweet.owned_by?(current_user) %>
+    <%= link_to "Follow User", follow_user_path(@user), method: :put %>
+  <% end %>
 <% end %>
 
 <table>
@@ -21,7 +23,7 @@
       <tr>
         <td><%= tweet.content %></td>
         <td><%= link_to 'Show', tweet %></td>
-        <% if user_signed_in? && (tweet.user_id == current_user.id) %>
+        <% if tweet.owned_by?(current_user) %>
           <td><%= link_to 'Edit', edit_tweet_path(tweet) %></td>
           <td><%= link_to 'Destroy', tweet, method: :delete, data: { confirm: 'Are you sure?' } %></td>
         <% end %>

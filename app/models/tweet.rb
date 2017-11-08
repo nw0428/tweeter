@@ -12,4 +12,8 @@ class Tweet < ApplicationRecord
       self.hashtags << hashtag
     end
   end
+
+  def owned_by?(user)
+    return user && user == self.user
+  end
 end
