@@ -7,7 +7,7 @@ class Tweet < ApplicationRecord
 
   def generate_hashtags
     content.scan(/#\w+/).each do |tag|
-        Hashtag.find_or_create_by(tag: tag)
+        hashtag = Hashtag.find_or_create_by(tag: tag)
         self.hashtags << hashtag
     end
   end
