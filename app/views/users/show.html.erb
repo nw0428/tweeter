@@ -1,6 +1,6 @@
 <p id="notice"><%= notice %></p>
 
-<h1>Tweets by @user.email</h1>
+<h1>Tweets by <%= @user.email %></h1>
 
 <% if @user.followers.include? current_user %>
 <h2> Currently followed </h2>
