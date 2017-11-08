@@ -7,9 +7,11 @@ class Tweet < ApplicationRecord
 
   def generate_hashtags
     content.scan(/#\w+/).each do |tag|
-      hashtag = Hashtag.new(tag: tag)
-      hashtag.save
-      self.hashtags << hashtag
+      if not Hashtag.exists?(tag: tag)
+        hashtag = Hashtag.new(tag: tag)
+        hashtag.save
+        self.hashtags << hashtag
+      end
     end
   end
 end
