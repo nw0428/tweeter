@@ -62,12 +62,21 @@ class TweetsController < ApplicationController
   end
 
   def dashboard
+    allTweets = Tweet.all.order("created_at DESC").limit(25)
+
     if current_user
-      userTweets = current_user.tweets
-      followTweets = Tweet.where(user_id: current_user.following_users)
-      @tweets = userTweets + followTweets
+      tweets = Tweet.where(user_id: current_user)
+      .or(Tweet.where(user_id: current_user.following_users))
+      .order("created_at DESC").limit(25)
+
+      if tweets.length <= 20
+        @tweets = allTweets
+      else
+        @tweets = tweets
+      end
+
     else
-      @tweets = Tweet.order(:created_at).limit(20)
+      @tweets = allTweets
     end
     render :index
   end
