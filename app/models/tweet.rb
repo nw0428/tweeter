@@ -7,14 +7,16 @@ class Tweet < ApplicationRecord
 
   def generate_hashtags
     content.scan(/#\w+/).each do |tag|
-      hashtag = Hashtag.new(tag: tag)
-      hashtag.save
-      self.hashtags << hashtag
+      if not Hashtag.exists?(tag: tag)
+        hashtag = Hashtag.new(tag: tag)
+        hashtag.save
+        self.hashtags << hashtag
+      end
     end
   end
 
-  def self.search(search)
-    where("content LIKE ?", "%#{search}%")
+  def self.search(hashtag)
+    where("content LIKE ?", "%#{hashtag}%")
   end
 
 end
