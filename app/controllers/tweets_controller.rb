@@ -63,7 +63,9 @@ class TweetsController < ApplicationController
 
   def dashboard
     if current_user
-      @tweets = current_user.tweets
+      userTweets = current_user.tweets
+      followTweets = Tweet.where(user_id: current_user.following_users)
+      @tweets = userTweets + followTweets
     else
       @tweets = Tweet.order(:created_at).limit(20)
     end
