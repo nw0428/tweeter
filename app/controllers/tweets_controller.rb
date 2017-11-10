@@ -5,6 +5,13 @@ class TweetsController < ApplicationController
   # GET /tweets.json
   def index
     @tweets = Tweet.all
+    if Hashtag.where(tag: "##{params[:search]}").count() != 0
+      @tweets = Hashtag.find_by_tag("##{params[:search]}").tweets.order("created_at DESC")
+    elsif Hashtag.where(tag: "##{params[:search]}").count() == nil
+      @tweets = Tweet.all.order("created_at DESC")
+    else
+      @tweets = Tweet.none
+    end
   end
 
   # GET /tweets/1
@@ -92,4 +99,5 @@ class TweetsController < ApplicationController
     def tweet_params
       params.require(:tweet).permit(:content)
     end
+
 end
