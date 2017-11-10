@@ -70,7 +70,8 @@ class TweetsController < ApplicationController
 
       if tweets.length <= 20
         notTweets = Tweet.where.not(user_id: current_user, user_id: current_user.following_users).order("created_at DESC")
-        @tweets = (tweets + notTweets)[0..24]
+        .limit(25 - tweets.length)
+        @tweets = (tweets + notTweets).sort { |a, b| b.created_at <=> a.created_at }
       else
         @tweets = tweets
       end
