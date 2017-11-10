@@ -15,8 +15,4 @@ class Tweet < ApplicationRecord
     end
   end
 
-  # def self.search(search)
-  #   where(search)
-  # end
-
 end
