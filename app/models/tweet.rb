@@ -5,10 +5,13 @@ class Tweet < ApplicationRecord
   belongs_to :user
   has_and_belongs_to_many :hashtags
 
-  def generate_hashtags
+def generate_hashtags
     content.scan(/#\w+/).each do |tag|
-        hashtag = Hashtag.find_or_create_by(tag: tag)
+      if not Hashtag.exists?(tag: tag)
+        hashtag = Hashtag.new(tag: tag)
+        hashtag.save
         self.hashtags << hashtag
+      end
     end
   end
 end
