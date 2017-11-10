@@ -6,7 +6,7 @@ class TweetsController < ApplicationController
   def index
     @tweets = Tweet.all
     if params[:search]
-      @tweets = Tweet.search(params[:search]).order("created_at DESC")
+      @tweets = Hashtag.find_by_tag("##{params[:search]}").tweets.order("created_at DESC")
     else
       @tweets = Tweet.all.order("created_at DESC")
     end
