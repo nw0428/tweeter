@@ -5,7 +5,7 @@ class Tweet < ApplicationRecord
   belongs_to :user
   has_and_belongs_to_many :hashtags
 
-  def generate_hashtags
+def generate_hashtags
     content.scan(/#\w+/).each do |tag|
       if not Hashtag.exists?(tag: tag)
         hashtag = Hashtag.new(tag: tag)
@@ -14,5 +14,4 @@ class Tweet < ApplicationRecord
       end
     end
   end
-
 end

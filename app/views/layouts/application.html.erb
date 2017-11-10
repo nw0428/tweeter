@@ -17,7 +17,7 @@
 
     <p class ="notice"><%= notice %></p>
     <p class ="alert"><%= alert %></p>
-    
+   
     <div class="sign-in-out" id="sign-in">
     <% if !current_user %>
       <%= link_to "Sign In", new_user_session_path %>
@@ -25,6 +25,8 @@
       <%= link_to "Sign Out", destroy_user_session_path, method: :delete %>
     <% end %>
     </div>
-    <%= yield %>
+  
+    <div class="dash" ><%= link_to 'Home', dashboard_tweets_url %></div>
+  <%= yield %>
   </body>
 </html>
