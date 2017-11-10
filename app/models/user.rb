@@ -4,7 +4,7 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
-  has_many :tweets
+  has_many :tweets, dependent: :destroy
   has_and_belongs_to_many :following_users,
                           class_name: 'User',
                           join_table: :users_users,
